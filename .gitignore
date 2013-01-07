@@ -1,0 +1,7 @@
+#Ignore files buid 
+*.suo
+*/obj/*
+*/bin/*
+*.user
+bin
+obj
