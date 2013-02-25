@@ -111,6 +111,35 @@ namespace MvcPersonPractice.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult SearchIndex(string movieGenre,  string searchString)
+        {
+            var GenreList = new List<string>();
+            var GenreQry = from d in db.Movies
+                           orderby d.Genre
+                           select d.Genre;
+            GenreList.AddRange(GenreQry.Distinct());
+            ViewBag.movieGenre = new SelectList(GenreList);
+                        
+            var movies = from m in db.Movies
+                        select m;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(s => s.Title.Contains(searchString));
+            }
+
+            if (string.IsNullOrEmpty(movieGenre))
+            {
+                return View(movies);
+            }
+            else
+            {
+                return View(movies.Where(x => x.Genre == movieGenre));
+            }
+
+
+            return View(movies);
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

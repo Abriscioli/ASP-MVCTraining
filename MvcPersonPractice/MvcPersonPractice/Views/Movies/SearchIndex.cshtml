@@ -1,14 +1,22 @@
 ﻿@model IEnumerable<MvcPersonPractice.Models.Movie>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SearchIndex";
 }
 
-<h2>Index</h2>
+<h2>SearchIndex</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    
+          @using (Html.BeginForm("SearchIndex", "Movies", FormMethod.Get))
+          { 
+              <p> Genre: @Html.DropDownList("movieGenre", "All") 
+                  Title: @Html.TextBox("SearchString") <br />   
+            <input type="submit" value="Filter" /></p> 
+          } 
 </p>
+
 <table>
     <tr>
         <th>
